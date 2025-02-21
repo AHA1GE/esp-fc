@@ -136,6 +136,7 @@ namespace Espfc
       int readGyro(VectorInt16 &v) override
       {
         uint8_t fifo_data[16];
+        _bus->writeByte(_addr, ICM40608_RA_REG_BANK_SEL, ICM40608_BANK_SELECT0); // select bank 0
         _bus->readFast(_addr, 0x30, 16, fifo_data); // FIFO_DATA_REG 0x30
         v.x = (((int16_t)fifo_data[7]) << 8) | fifo_data[8];
         v.y = (((int16_t)fifo_data[9]) << 8) | fifo_data[10];
@@ -146,6 +147,7 @@ namespace Espfc
       int readAccel(VectorInt16 &v) override
       {
         uint8_t fifo_data[16];
+        _bus->writeByte(_addr, ICM40608_RA_REG_BANK_SEL, ICM40608_BANK_SELECT0); // select bank 0
         _bus->readFast(_addr, 0x30, 16, fifo_data); // FIFO_DATA_REG 0x30
         v.x = (((int16_t)fifo_data[1]) << 8) | fifo_data[2];
         v.y = (((int16_t)fifo_data[3]) << 8) | fifo_data[4];
